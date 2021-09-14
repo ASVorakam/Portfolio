@@ -1,19 +1,19 @@
--- Данный датасет был взят с https://ourworldindata.org/covid-deaths.
--- Датасет содержит в себе всемирные данные о пандемии COVID-19
--- Датасет предварительно был разбит на две таблицы: CovidDeath и CovidVaccinations. 
--- Цель: провести исследование данных с помощью SQL, а так же подготовить различные табилцы для визуализации.
+-- Р”Р°РЅРЅС‹Р№ РґР°С‚Р°СЃРµС‚ Р±С‹Р» РІР·СЏС‚ СЃ https://ourworldindata.org/covid-deaths.
+-- Р”Р°С‚Р°СЃРµС‚ СЃРѕРґРµСЂР¶РёС‚ РІ СЃРµР±Рµ РІСЃРµРјРёСЂРЅС‹Рµ РґР°РЅРЅС‹Рµ Рѕ РїР°РЅРґРµРјРёРё COVID-19
+-- Р”Р°С‚Р°СЃРµС‚ РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕ Р±С‹Р» СЂР°Р·Р±РёС‚ РЅР° РґРІРµ С‚Р°Р±Р»РёС†С‹: CovidDeath Рё CovidVaccinations.
+-- Р¦РµР»СЊ: РїСЂРѕРІРµСЃС‚Рё РёСЃСЃР»РµРґРѕРІР°РЅРёРµ РґР°РЅРЅС‹С… СЃ РїРѕРјРѕС‰СЊСЋ SQL, Р° С‚Р°Рє Р¶Рµ РїРѕРґРіРѕС‚РѕРІРёС‚СЊ СЂР°Р·Р»РёС‡РЅС‹Рµ С‚Р°Р±РёР»С†С‹ РґР»СЏ РІРёР·СѓР°Р»РёР·Р°С†РёРё.
 
 SELECT *
 FROM PortfolioProject..CovidDeaths
 ORDER BY date
 
--- Выберем данные, которые будем использовать
+-- Р’С‹Р±РµСЂРµРј РґР°РЅРЅС‹Рµ, РєРѕС‚РѕСЂС‹Рµ Р±СѓРґРµРј РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ
 
 SELECT Location, date, total_cases, new_cases, total_deaths, population
 FROM PortfolioProject..CovidDeaths
 ORDER BY Location, date
 
--- Посмотрим на отношение всех смертей ко всем случаям заражения в процентном соотношении
+-- РџРѕСЃРјРѕС‚СЂРёРј РЅР° РѕС‚РЅРѕС€РµРЅРёРµ РІСЃРµС… СЃРјРµСЂС‚РµР№ РєРѕ РІСЃРµРј СЃР»СѓС‡Р°СЏРј Р·Р°СЂР°Р¶РµРЅРёСЏ РІ РїСЂРѕС†РµРЅС‚РЅРѕРј СЃРѕРѕС‚РЅРѕС€РµРЅРёРё
 
 SELECT Location, date, total_cases, total_deaths, (total_deaths/total_cases)*100 as DeathPercentage
 FROM PortfolioProject..CovidDeaths
@@ -35,23 +35,23 @@ WHERE Location like 'Italy'
 ORDER BY Location, date
 
 
--- Интересное примечание: Из трёх представленных стран с примерно одинаковой датой первых зафиксированных случаев заражения,
--- только в одной процент смертности заметно отличается от двух остальных в меньшую сторону. Любопытно.
+-- РРЅС‚РµСЂРµСЃРЅРѕРµ РїСЂРёРјРµС‡Р°РЅРёРµ: РР· С‚СЂС‘С… РїСЂРµРґСЃС‚Р°РІР»РµРЅРЅС‹С… СЃС‚СЂР°РЅ СЃ РїСЂРёРјРµСЂРЅРѕ РѕРґРёРЅР°РєРѕРІРѕР№ РґР°С‚РѕР№ РїРµСЂРІС‹С… Р·Р°С„РёРєСЃРёСЂРѕРІР°РЅРЅС‹С… СЃР»СѓС‡Р°РµРІ Р·Р°СЂР°Р¶РµРЅРёСЏ,
+-- С‚РѕР»СЊРєРѕ РІ РѕРґРЅРѕР№ РїСЂРѕС†РµРЅС‚ СЃРјРµСЂС‚РЅРѕСЃС‚Рё Р·Р°РјРµС‚РЅРѕ РѕС‚Р»РёС‡Р°РµС‚СЃСЏ РѕС‚ РґРІСѓС… РѕСЃС‚Р°Р»СЊРЅС‹С… РІ РјРµРЅСЊС€СѓСЋ СЃС‚РѕСЂРѕРЅСѓ. Р›СЋР±РѕРїС‹С‚РЅРѕ.
 
--- Посмотрим на отношение всех случаев заражения к общему населению в процентном соотношении
+-- РџРѕСЃРјРѕС‚СЂРёРј РЅР° РѕС‚РЅРѕС€РµРЅРёРµ РІСЃРµС… СЃР»СѓС‡Р°РµРІ Р·Р°СЂР°Р¶РµРЅРёСЏ Рє РѕР±С‰РµРјСѓ РЅР°СЃРµР»РµРЅРёСЋ РІ РїСЂРѕС†РµРЅС‚РЅРѕРј СЃРѕРѕС‚РЅРѕС€РµРЅРёРё
 
 SELECT Location, date, total_cases, population, (total_cases/population)*100 as CovidPercentage
 FROM PortfolioProject..CovidDeaths
 ORDER BY Location, date
 
--- Посмотрим на страны с наибольшим процентом зараженного населения 
+-- РџРѕСЃРјРѕС‚СЂРёРј РЅР° СЃС‚СЂР°РЅС‹ СЃ РЅР°РёР±РѕР»СЊС€РёРј РїСЂРѕС†РµРЅС‚РѕРј Р·Р°СЂР°Р¶РµРЅРЅРѕРіРѕ РЅР°СЃРµР»РµРЅРёСЏ
 
 SELECT Location, population,  MAX(total_cases) as HighestInfectionCount, MAX((total_cases/population))*100 as CovidInfectedPercentage
 FROM PortfolioProject..CovidDeaths
 GROUP BY location, population
 ORDER BY CovidInfectedPercentage desc
 
--- Посмотрим на страны с наибольшим числом смертей от вируса
+-- РџРѕСЃРјРѕС‚СЂРёРј РЅР° СЃС‚СЂР°РЅС‹ СЃ РЅР°РёР±РѕР»СЊС€РёРј С‡РёСЃР»РѕРј СЃРјРµСЂС‚РµР№ РѕС‚ РІРёСЂСѓСЃР°
 
 SELECT Location, MAX(total_deaths) as TotalDeathCount
 FROM PortfolioProject..CovidDeaths
@@ -59,7 +59,7 @@ WHERE continent is not null
 GROUP BY location, population
 ORDER BY TotalDeathCount desc
 
--- Та же статистика, но по континентам
+-- РўР° Р¶Рµ СЃС‚Р°С‚РёСЃС‚РёРєР°, РЅРѕ РїРѕ РєРѕРЅС‚РёРЅРµРЅС‚Р°Рј
 
 SELECT Location, MAX(total_deaths) as TotalDeathCount
 FROM PortfolioProject..CovidDeaths
@@ -68,66 +68,66 @@ GROUP BY location
 ORDER BY TotalDeathCount desc
 
 
--- Всемирные цифры по всем зараженным, умершим и процентному отношению этих данных
+-- Р’СЃРµРјРёСЂРЅС‹Рµ С†РёС„СЂС‹ РїРѕ РІСЃРµРј Р·Р°СЂР°Р¶РµРЅРЅС‹Рј, СѓРјРµСЂС€РёРј Рё РїСЂРѕС†РµРЅС‚РЅРѕРјСѓ РѕС‚РЅРѕС€РµРЅРёСЋ СЌС‚РёС… РґР°РЅРЅС‹С…
 
 SELECT SUM(CAST(new_cases as FLOAT)) as total_cases,
-	SUM(CAST(new_deaths as FLOAT)) as total_deaths,
-	SUM(CAST(new_deaths as FLOAT))/SUM(CAST(new_cases as FLOAT))*100 as DeathPercentage
+       SUM(CAST(new_deaths as FLOAT)) as total_deaths,
+       SUM(CAST(new_deaths as FLOAT))/SUM(CAST(new_cases as FLOAT))*100 as DeathPercentage
 FROM PortfolioProject..CovidDeaths
 WHERE continent is not null
 
 
 
--- Посмотрим на процент вакцинированных людей от общего населения в каждой отдельной стране
+-- РџРѕСЃРјРѕС‚СЂРёРј РЅР° РїСЂРѕС†РµРЅС‚ РІР°РєС†РёРЅРёСЂРѕРІР°РЅРЅС‹С… Р»СЋРґРµР№ РѕС‚ РѕР±С‰РµРіРѕ РЅР°СЃРµР»РµРЅРёСЏ РІ РєР°Р¶РґРѕР№ РѕС‚РґРµР»СЊРЅРѕР№ СЃС‚СЂР°РЅРµ
 
 SELECT dea.continent, dea.location, dea.date, dea.population, vac.new_vaccinations,
-	SUM(CAST(vac.new_vaccinations as float)) OVER (Partition by dea.location Order by dea.Date) as RollingPeopleVaccinated
+       SUM(CAST(vac.new_vaccinations as float)) OVER (Partition by dea.location Order by dea.Date) as RollingPeopleVaccinated
 FROM PortfolioProject..CovidDeaths as dea
-JOIN PortfolioProject..CovidVaccinations as vac
-	on dea.location = vac.location
-	and dea.date = vac.date
+         JOIN PortfolioProject..CovidVaccinations as vac
+              on dea.location = vac.location
+                  and dea.date = vac.date
 WHERE dea.continent is not null
 ORDER BY Location, date
 
 WITH CTE (Continent, Location, Date, Population, New_vaccinations, RollingPeopleVaccinated)
-as 
-(
-	SELECT dea.continent, dea.location, dea.date, dea.population, vac.new_vaccinations,
-		SUM(CAST(vac.new_vaccinations as float)) OVER (Partition by dea.location Order by dea.Date) as RollingPeopleVaccinated
-	FROM PortfolioProject..CovidDeaths as dea
-	JOIN PortfolioProject..CovidVaccinations as vac
-		on dea.location = vac.location
-		and dea.date = vac.date
-	WHERE dea.continent is not null
-)
+    as
+    (
+    SELECT dea.continent, dea.location, dea.date, dea.population, vac.new_vaccinations,
+    SUM(CAST(vac.new_vaccinations as float)) OVER (Partition by dea.location Order by dea.Date) as RollingPeopleVaccinated
+    FROM PortfolioProject..CovidDeaths as dea
+    JOIN PortfolioProject..CovidVaccinations as vac
+    on dea.location = vac.location
+    and dea.date = vac.date
+    WHERE dea.continent is not null
+    )
 SELECT *, ROUND((RollingPeopleVaccinated/Population)*100, 2) as PercentageofPeopleVaccinated
 from CTE
 ORDER BY Location, date
 
--- Отдельно Выведу таблицы для удобной визуализации в tableau 
+-- РћС‚РґРµР»СЊРЅРѕ Р’С‹РІРµРґСѓ С‚Р°Р±Р»РёС†С‹ РґР»СЏ СѓРґРѕР±РЅРѕР№ РІРёР·СѓР°Р»РёР·Р°С†РёРё РІ tableau
 
 SELECT SUM(CAST(new_cases as FLOAT)) as total_cases,
-	SUM(CAST(new_deaths as FLOAT)) as total_deaths,
-	SUM(CAST(new_deaths as FLOAT))/SUM(CAST(new_cases as FLOAT))*100 as DeathPercentage
+       SUM(CAST(new_deaths as FLOAT)) as total_deaths,
+       SUM(CAST(new_deaths as FLOAT))/SUM(CAST(new_cases as FLOAT))*100 as DeathPercentage
 FROM PortfolioProject..CovidDeaths
 WHERE continent is not null
 
 SELECT location, SUM(CAST(new_deaths as float)) as TotalDeathCount
 From PortfolioProject..CovidDeaths
 where continent is null
-and location not in ('World', 'European Union', 'International')
+  and location not in ('World', 'European Union', 'International')
 Group by location
 order by TotalDeathCount desc
 
 Select location, population, MAX(total_cases) as HighestInfectionCount,
-	MAX((total_cases/population))*100 as PercentPopulationInfected
+       MAX((total_cases/population))*100 as PercentPopulationInfected
 From PortfolioProject..CovidDeaths
 Group by location, population
 order by PercentPopulationInfected desc
 
 Select location, Population, date
-	,MAX(total_cases) as HighestInfectionCount
-	,MAX((total_cases/population))*100 as PercentPopulationInfected
+        ,MAX(total_cases) as HighestInfectionCount
+        ,MAX((total_cases/population))*100 as PercentPopulationInfected
 From PortfolioProject..CovidDeaths
 Group by location, population, date
 order by PercentPopulationInfected desc
